@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import Expenses from './Components/Expenses/Expenses'
+import NewExpense from './Components/Form/NewExpense'
+
+let dummyArr = [
+  {
+    expenseDate : new Date(2023, 1, 3),
+    expenseAmount : 300,
+    expenseTitle : 'School Fees',
+    id : 'e1', 
+  },
+
+  {
+    expenseDate : new Date(2023, 3, 5),
+    expenseAmount : 500,
+    expenseTitle : 'Dating',
+    id : 'e2'
+  },
+
+]
 
 function App() {
+
+  const [arr, setArr] = useState(dummyArr)
+
+  const getDataFromNewExpense = (argumentFromNewExpenses) => {
+
+    const updatedArr = [...arr, argumentFromNewExpenses]
+    setArr(updatedArr)
+    console.log(updatedArr);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+        <div>
+            <NewExpense propsForNewExpense = {getDataFromNewExpense}/>
+            <Expenses item = {arr} />
+        </div> 
+    )                  
 }
 
-export default App;
+export default App
